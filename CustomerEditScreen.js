@@ -198,11 +198,11 @@ export default function CustomerEdit(props) {
   const toggleSwitch = (e) => {
     setDitta_individuale(e)
   }
-  const onSelectedProvincia = text => {
+  const onSelectedProvincia = (e) => {
     setCliente({...cliente, prov:e.Value, label_prov:e.Name})
 
   }
-  const onSelectedNazione = text => {
+  const onSelectedNazione = (e) => {
     setCliente({...cliente, iso_nazione:e.Value, label_iso_nazione: e.Name})
   }
   const onClosed = text => {

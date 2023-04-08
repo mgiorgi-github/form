@@ -5,7 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 
-import { Platform, StatusBar, StyleSheet, View, Alert, AppState } from "react-native";
+import { StyleSheet, AppState } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import { NativeBaseProvider, Text, Button } from "native-base";
@@ -16,13 +16,6 @@ import CustomerEdit from "./CustomerEditScreen";
 SplashScreen.preventAutoHideAsync();
 
 export default function App(props) {
-
-  const [showSpinner, setShowSpinner] = useState(false);
-
-  const appState = useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
-
-  const [updateAvailable, setUpdateAvailable] = useState(false);
 
   const [appIsReady, setAppIsReady] = useState(false);
 
