@@ -7,16 +7,14 @@ import {
   Alert,
   KeyboardAvoidingView,
   Switch,
-  TouchableOpacity,
   TouchableWithoutFeedback,
+
 } from "react-native";
 
 import {
   FormControl,
-  Input,
   Button,
   Text,
-  TextArea,
   Box,
   Stack,
   Icon,
@@ -24,9 +22,10 @@ import {
 
 import styles from "./config/styles";
 
-import PickerModal from "react-native-picker-modal-view";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-import { Ionicons } from "@expo/vector-icons";
+import InputComponent from "./InputComponent";
+import SelectComponent from "./SelectComponent";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -158,6 +157,26 @@ export default function CustomerEdit(props) {
   const [ditta_individuale, setDitta_individuale] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [arrayPagamento, setArrayPagamento] = useState([]);
+
+
+  const [ragsoc, setragsoc] = useState("");
+  const [ragsoc2, setragsoc2] = useState("");
+  const [piva, setipva] = useState("");
+  const [cod_sdi, setcod_sdi] = useState("");
+  const [iban, setiban] = useState("");
+  const [cf, setfc] = useState("");
+  const [indir, setindir] = useState("");
+  const [citta, setcitta] = useState("");
+  const [cap, setcap] = useState("");
+  const [prov, setprov] = useState("");
+  const [iso_nazione, setiso_nazione] = useState("");
+  const [tel, settel] = useState("");
+  const [cell, setcell] = useState("");
+  const [email, setemail] = useState("");
+  const [pec, setpec] = useState("");
+  const [note, setnote] = useState("");
+
+  /*
   const [cliente, setCliente] = useState({        
 		id_cliente: 0,
     ragsoc: "",
@@ -182,37 +201,19 @@ export default function CustomerEdit(props) {
     inviato: 0
 	}
 );
-
+*/
 
   const _onPressSubmitButton = () => {
     alert('OK')
   }
-
-
-
-
-
-
-
-    
   const toggleSwitch = (e) => {
     setDitta_individuale(e)
   }
-  const onSelectedProvincia = (e) => {
-    setCliente({...cliente, prov:e.Value, label_prov:e.Name})
-
-  }
-  const onSelectedNazione = (e) => {
-    setCliente({...cliente, iso_nazione:e.Value, label_iso_nazione: e.Name})
-  }
-  const onClosed = text => {
-    console.log("close key pressed");
-  }
-
-  const { prov, iso_nazione } = cliente;
 
 
 
+
+  
     return (
       <DismissKeyboard>
         <View style={{flex: 1}}>
@@ -222,101 +223,28 @@ export default function CustomerEdit(props) {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <ScrollView style={styles.scrollView} bounces={true}>
+
               <FormControl style={{ marginBottom: 30 }}>
                 <Stack direction="row" mb="1.5" mt="1.5" space={2}>
                   <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={cliente.ragsoc != "" || cliente.ragsoc2 != "" ? "#000000" : "#FF0000"}
-                        >Ragsoc **</Text>
-                    </FormControl.Label>
-                    <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        size="2xl"
-                        bg="#fff"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        default={cliente.ragsoc}
-                        onChangeText={text =>  setCliente({...cliente, ragsoc:text})}
-                      />
+                    <InputComponent label="Ragsoc **" text={ragsoc} minlength={1} onupdate={text => setragsoc(text)} style={stylesComponent} />
                   </Box>
                   <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={cliente.ragsoc != "" || cliente.ragsoc2 != "" ? "#000000" : "#FF0000"}
-                        >Ragsoc **</Text>
-                    </FormControl.Label>
-                    <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        size="2xl"
-                        bg="#fff"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        w="100%"
-                        autoCorrect={false}
-                        default={cliente.ragsoc2}
-                        onChangeText={text =>  setCliente({...cliente, ragsoc2:text})}
-                      />
+                    <InputComponent label="Ragsoc2 **" text={ragsoc2} minlength={1} onupdate={text => setragsoc2(text)} style={stylesComponent}/>
                   </Box>
                 </Stack>
-
+            
                 <Stack direction="row" mb="1.5" mt="1.5" space={2}>
                   <Box w="24%">
-                    <FormControl.Label>
-                      <Text color={cliente.piva.length == 11 ? "#000000" : "#FF0000"}
-                        >Partita IVA *</Text>
-                    </FormControl.Label>
-                    <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        size="2xl"
-                        bg="#fff"
-                        maxLength={11}
-                        keyboardType="numeric"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        default={cliente.piva}
-                        onChangeText={text =>  setCliente({...cliente, piva:text})}
-                      />
+                    <InputComponent label="Partita IVA *" text={piva} minlength={11} keyboard="numeric" onupdate={text => setipva(text)} style={stylesComponent}/>
                   </Box>
-
                   <Box w="24%">
-                    <FormControl.Label>
-                      <Text color={cliente.cod_sdi.length == 7 ? "#000000" : "#FF0000"}
-                        >Codice SDI *</Text>
-                    </FormControl.Label>
-                    <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        maxLength={7}
-                        size="2xl"
-                        bg="#fff"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        default={cliente.cod_sdi}
-                        onChangeText={text =>  setCliente({...cliente, cod_sdi:text})}
-                      />
+                    <InputComponent label="Codice SDI  *" text={cod_sdi} minlength={7} onupdate={text => setcod_sdi(text)} style={stylesComponent}/>
                   </Box>
-
                   <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={cliente.iban.length == 27 ? "#000000" : "#FF0000"}
-                        >IBAN *</Text>
-                    </FormControl.Label>
-                    <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        maxLength={27}
-                        size="2xl"
-                        bg="#fff"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        w="100%"
-                        autoCorrect={false}
-                        default={cliente.iban}
-                        onChangeText={text =>  setCliente({...cliente, iban:text})}
-                      />
+                    <InputComponent label="IBAN  *" text={iban} minlength={27} onupdate={text => setiban(text)} style={stylesComponent}/>
                   </Box>
                 </Stack>
-              
 
                 <Stack direction="row" mb="1.5" mt="1.5" space={2}>
                   <Box w="49%" justifyContent="flex-end" mb="2">
@@ -333,94 +261,35 @@ export default function CustomerEdit(props) {
                     </Stack>
                   </Box>
                   <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={cliente.cf.length == 16 || !ditta_individuale ? "#000000" : "#FF0000"}
-                        >Codice fiscale *</Text>
-                    </FormControl.Label>
-                    <Input
-                      style={[styles.textRegular, {height: 44}]}
-                      size="2xl"
-                      bg="#fff"
-                      maxLength={16}
-                      returnKeyType="next"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      default={cliente.cf}
-                      isDisabled={!ditta_individuale}
-                      onChangeText={text => {
-                        if(ditta_individuale){
-                          setCliente({...cliente, cf:text})}
-                        }
-                      } 
-                    />
+                    <InputComponent label="Codice fiscale *" text={cf} minlength={16} onupdate={text => setfc(text)} disable={!ditta_individuale} style={stylesComponent}/>
                   </Box>
                   <Box w="49%">
-
                   </Box>
-
                 </Stack>
-
                 <Stack direction="row" mb="3.5" mt="1.5" space={2}>  
                   <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={cliente.indir != "" ? "#000000" : "#FF0000"}
-                        >Indirizzo *</Text>
-                    </FormControl.Label>
-                    <Input
-                      style={[styles.textRegular, {height: 44}]}
-                      size="2xl"
-                      bg="#fff"
-                      returnKeyType="next"
-                      autoCapitalize="none"
-                      w="100%"
-                      autoCorrect={false}
-                      default={cliente.indir}
-                      onChangeText={text =>  setCliente({...cliente, indir:text})}
-                    />
+                    <InputComponent label="Indirizzo *" text={cf} minlength={1} onupdate={text => setindir(text)} style={stylesComponent}/>
                   </Box>
-
                   <Box w="24%">
-                    <FormControl.Label>
-                      <Text color={cliente.citta != "" ? "#000000" : "#FF0000"}
-                        >Città *</Text>
-                    </FormControl.Label>
-                    <Input
-                      style={[styles.textRegular, {height: 44}]}
-                        size="2xl"
-                        bg="#fff"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        default={cliente.citta}
-                        onChangeText={text =>  setCliente({...cliente, citta:text})}
-                      />
+                    <InputComponent label="Città *" text={citta} minlength={1} onupdate={text => setcitta(text)} style={stylesComponent}/>
                   </Box>
-
                   <Box w="24%">
-                    <FormControl.Label>
-                      <Text color={cliente.cap != "" ? "#000000" : "#FF0000"}
-                        >CAP *</Text>
-                    </FormControl.Label>
-                    <Input
-                      style={[styles.textRegular, {height: 44}]}
-                      size="2xl"
-                      bg="#fff"
-                      keyboardType="numeric"
-                      returnKeyType="next"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      default={cliente.cap}
-                      onChangeText={text =>  setCliente({...cliente, cap:text})}
-                    />
+                    <InputComponent label="CAP *" text={cap} minlength={1} onupdate={text => setcap(text)} style={stylesComponent}/>
                   </Box>
-
-
                 </Stack>       
-
+                <Stack direction="row" mb="1.5" mt="2.5" space={2}>
+                  <Box w="49%">
+                    <SelectComponent label="Provincia *" text={prov} minlength={1} data={arrayProvince} onupdate={text => setprov(text)} style={stylesComponent}/>  
+                  </Box>
+                  <Box w="49%">
+                    <SelectComponent label="Nazione *" text={iso_nazione} minlength={1} data={arrayNazioni} onupdate={text => setiso_nazione(text)} style={stylesComponent}/>  
+                  </Box>
+                </Stack>
+                {/*
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="49%">
                     <FormControl.Label>
-                      <Text color={cliente.prov != "" ? "#000000" : "#FF0000"}
+                      <Text color={prov != "" ? "#000000" : "#FF0000"}
                         >Provincia *</Text>
                     </FormControl.Label>
 
@@ -428,7 +297,7 @@ export default function CustomerEdit(props) {
                       renderSelectView={(disabled, selected, showModal) =>
                         <TouchableOpacity onPress={showModal}>
                           <View style={{height: 48, borderWidth: 1, borderColor: "#d4d4d4", borderRadius: 4, justifyContent: "center", paddingHorizontal: 12, paddingVertical: 8}}>
-                            <Text style={[styles.textRegular, {}]}>{cliente.label_prov}</Text>
+                            <Text style={[stylesComponent.input, {}]}>{label_prov}</Text>
                             <Icon style={{position: "absolute", right: 10}} as={Ionicons} name="chevron-down" size="xl" />
                           </View>
                         </TouchableOpacity>
@@ -440,7 +309,7 @@ export default function CustomerEdit(props) {
                       items={arrayProvince}
                       sortingLanguage={"tr"}
                       showToTopButton={true}
-                      selected={cliente.prov}
+                      selected={prov}
                       showAlphabeticalIndex={false}
                       autoGenerateAlphabeticalIndex={true}
                       selectPlaceholderText={"Seleziona..."}
@@ -452,7 +321,7 @@ export default function CustomerEdit(props) {
                   </Box>
                   <Box w="49%">
                     <FormControl.Label>
-                      <Text color={cliente.iso_nazione != "" ? "#000000" : "#FF0000"}
+                      <Text color={iso_nazione != "" ? "#000000" : "#FF0000"}
                         >Nazione *</Text>
                     </FormControl.Label>
 
@@ -460,7 +329,7 @@ export default function CustomerEdit(props) {
                       renderSelectView={(disabled, selected, showModal) =>
                         <TouchableOpacity onPress={showModal}>
                           <View style={{height: 48, borderWidth: 1, borderColor: "#d4d4d4", borderRadius: 4, justifyContent: "center", paddingHorizontal: 12, paddingVertical: 8}}>
-                            <Text style={[styles.textRegular, {}]}>{cliente.label_iso_nazione}</Text>
+                            <Text style={[stylesComponent.input, {}]}>{label_iso_nazione}</Text>
                             <Icon style={{position: "absolute", right: 10}} as={Ionicons} name="chevron-down" size="xl" />
                           </View>
                         </TouchableOpacity>
@@ -484,91 +353,33 @@ export default function CustomerEdit(props) {
 
                   </Box>
                 </Stack>
+                    */}
 
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={cliente.tel != "" || cliente.cell != "" ? "#000000" : "#FF0000"}
-                        >Telefono **</Text>
-                    </FormControl.Label>
-                    <Input
-                      style={[styles.textRegular, {height: 44}]}
-                      size="2xl"
-                      bg="#fff"
-                      keyboardType="numeric"
-                      returnKeyType="next"
-                      autoCapitalize="none"
-                      w="100%"
-                      autoCorrect={false}
-                      default={cliente.tel}
-                      onChangeText={text =>  setCliente({...cliente, tel:text})}
-                    />
+                    <InputComponent label="Telefono *" text={tel} minlength={1} onupdate={text => settel(text)} keyboard="numeric" style={stylesComponent}/>
                   </Box>
                   <Box w="49%">
-                  <FormControl.Label>
-                      <Text color={cliente.tel != "" || cliente.cell != "" ? "#000000" : "#FF0000"}
-                        >Cellulare **</Text>
-                    </FormControl.Label>
-                      <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        size="2xl"
-                        bg="#fff"
-                        keyboardType="numeric"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        w="100%"
-                        autoCorrect={false}
-                        default={cliente.cell}
-                        onChangeText={text =>  setCliente({...cliente, cell:text})}
-                      />
+                    <InputComponent label="Cellulare *" text={cell} minlength={1} onupdate={text => setcell(text)} keyboard="numeric" style={stylesComponent}/>
                   </Box>
                 </Stack>
 
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="49%">
-                    <FormControl.Label>Email</FormControl.Label>
-                      <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        size="2xl"
-                        bg="#fff"
-                        keyboardType="email-address"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        w="100%"
-                        autoCorrect={false}
-                        default={cliente.email}
-                        onChangeText={text =>  setCliente({...cliente, email:text})}
-                      />
+                    <InputComponent label="Email" text={email} onupdate={text => setemail(text)} keyboard="email-address" style={stylesComponent}/>
                   </Box>
                   <Box w="49%">
-                    <FormControl.Label>Pec</FormControl.Label>
-                      <Input
-                        style={[styles.textRegular, {height: 44}]}
-                        size="2xl"
-                        bg="#fff"
-                        keyboardType="email-address"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        w="100%"
-                        autoCorrect={false}
-                        default={cliente.pec}
-                        onChangeText={text =>  setCliente({...cliente, pec:text})}
-                      />
+                    <InputComponent label="PEC" text={pec} onupdate={text => setpec(text)} keyboard="email-address" style={stylesComponent}/>
                   </Box>
                 </Stack>
 
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="98%">
-                    <TextArea 
-                      onChangeText={text =>  setCliente({...cliente, note:text})}
-                      style={[styles.textRegular]}
-                      placeholder="Note" 
-                      size="2xl"
-                      default={cliente.note}
-                      mb="5" />
+                    <InputComponent label="Note" text={pec} onupdate={text => setnote(text)} multiline style={stylesComponent}/>
                   </Box>
                 </Stack>
- 
+
+
               </FormControl>
             
               <View style={{ marginBottom: 10 }}>
@@ -587,8 +398,6 @@ export default function CustomerEdit(props) {
                 >"SALVA CLIENTE"
                 </Button>
               </View>
-
-
             </ScrollView>
           </KeyboardAvoidingView>
         </View>
@@ -596,12 +405,9 @@ export default function CustomerEdit(props) {
     );
 }
 const stylesComponent = StyleSheet.create({
-  cartNote: {
-    fontSize: 13,
-    borderWidth: 1,
-    height: 70,
-    borderColor: "#EEE9E6",
-    padding: 10,
-    textAlignVertical: "top",
+  input: {
+    fontSize: 14,
+    marginVertical: 6
   },
 });
+

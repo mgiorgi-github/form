@@ -20,10 +20,6 @@ export const tabIconSelected = '#2f95dc';
 //***************************************************
 
 import { StyleSheet, Dimensions, Platform } from 'react-native';
-import * as Device from 'expo-device';
-
-let Device_Width = Dimensions.get('window').width;
-let Device_Height = Dimensions.get('window').height;
 
 if (Platform.OS === 'ios') {
     TopOffset = 80
@@ -32,23 +28,6 @@ if (Platform.OS === 'ios') {
     TopOffset = 90
     AndroidOffset = 25;
 }
-
-import { STATUS_BAR_STYLE, STATUS_BAR_COLOR } from './settings';
-
-if (STATUS_BAR_STYLE != '') {
-    if (Platform.OS === 'ios') {
-        if (Device.modelName.toLowerCase().includes('iphone x')) {
-            StatusBarOffset = 40
-        } else {
-            StatusBarOffset = 20
-        }
-    } else {
-        StatusBarOffset = 0
-    }
-} else {
-    StatusBarOffset = 0
-}
-
 
 const styles = StyleSheet.create({
     container: {
