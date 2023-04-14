@@ -280,23 +280,52 @@ export default function CustomerEdit(props) {
     return (
       <DismissKeyboard>
         <View style={{flex: 1}}>
-
-          <View><Text>ragsoc: {ragsoc}</Text></View>
-          <View><Text>ragsoc2: {ragsoc2}</Text></View>
-
           <KeyboardAvoidingView
             style={{ flex: 1, justifyContent: "center" }}
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <ScrollView style={styles.scrollView} bounces={true}>
+              <FormControl style={{ marginBottom: 30}}>
 
-              <FormControl style={{ marginBottom: 30 }}>
+                {/* BOF DEBUG  */}
+                <View style={{backgroundColor: "#cccccc", marginVertical: 15, padding: 15}}>
+                  <View style={{alignItems: "center", marginBottom: 15}}>
+                    <Text style={{fontSize: 20}}>DEBUG STATE VALIABLES</Text>
+                  </View>
+                  <View style={{flexDirection: "row"}}>
+                    <View style={{flex: 1}}>
+                      <View><Text>ragsoc: {ragsoc}</Text></View>
+                      <View><Text>ragsoc2: {ragsoc2}</Text></View>
+                      <View><Text>piva: {piva}</Text></View>
+                      <View><Text>cod_sdi: {cod_sdi}</Text></View>
+                      <View><Text>iban: {iban}</Text></View>
+                      <View><Text>ditta_individuale: {ditta_individuale}</Text></View>
+                    </View>
+                    <View style={{flex: 1}}>
+                      <View><Text>cf: {cf}</Text></View>
+                      <View><Text>indir: {indir}</Text></View>
+                      <View><Text>citta: {citta}</Text></View>
+                      <View><Text>cap: {cap}</Text></View>
+                      <View><Text>prov: {prov}</Text></View>
+                      <View><Text>iso_nazione: {iso_nazione}</Text></View>
+                    </View>
+                    <View style={{flex: 1}}>
+                      <View><Text>tel: {tel}</Text></View>
+                      <View><Text>cell: {cell}</Text></View>
+                      <View><Text>email: {email}</Text></View>
+                      <View><Text>pec: {pec}</Text></View>
+                      <View><Text>note: {note}</Text></View>
+                    </View>
+                  </View>
+                </View>
+                {/* EOF DEBUG  */}
+
                 <Stack direction="row" mb="1.5" mt="1.5" space={2}>
                   <Box w="49%">
-                    <InputComponent label="Ragsoc **" text={ragsoc} minlength={1} onupdate={_setragsoc} style={stylesComponent} />
+                    <InputComponent label="Ragsoc *" text={ragsoc} minlength={1} onupdate={_setragsoc} style={stylesComponent} />
                   </Box>
                   <Box w="49%">
-                    <InputComponent label="Ragsoc2 **" text={ragsoc2} minlength={1} onupdate={_setragsoc2} style={stylesComponent}/>
+                    <InputComponent label="Ragsoc2" text={ragsoc2} onupdate={_setragsoc2} style={stylesComponent}/>
                   </Box>
                 </Stack>
             
@@ -311,7 +340,6 @@ export default function CustomerEdit(props) {
                     <InputComponent label="IBAN  *" text={iban} minlength={27} onupdate={_setiban} style={stylesComponent}/>
                   </Box>
                 </Stack>
-
                 <Stack direction="row" mb="1.5" mt="1.5" space={2}>
                   <Box w="49%" justifyContent="flex-end" mb="2">
                     <Stack direction="row">
@@ -371,17 +399,9 @@ export default function CustomerEdit(props) {
                     <InputComponent label="Note" text={pec} onupdate={_setnote} multiline style={stylesComponent}/>
                   </Box>
                 </Stack>
-
-
-              </FormControl>
-            
+              </FormControl>         
               <View style={{ marginBottom: 10 }}>
-                <Text style={[styles.textSmall, { color: "#666666" }]}>
-                  * campi obbligatori
-                </Text>
-                <Text style={[styles.textSmall, { color: "#666666" }]}>
-                  ** compilare almeno uno dei due campi
-                </Text>
+                <Text style={[styles.textSmall, { color: "#666666" }]}>* campi obbligatori</Text>
               </View>
               <View style={{ marginBottom: 20 }}>
                 <Button
