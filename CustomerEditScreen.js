@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useCallback} from "react";
 import {
   StyleSheet,
   View,
@@ -152,19 +152,14 @@ const arrayNazioni =  [
 
 export default function CustomerEdit(props) {
 
-
-  const [edit, setEdit] = useState(false);
   const [ditta_individuale, setDitta_individuale] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
-  const [arrayPagamento, setArrayPagamento] = useState([]);
-
 
   const [ragsoc, setragsoc] = useState("");
   const [ragsoc2, setragsoc2] = useState("");
   const [piva, setipva] = useState("");
   const [cod_sdi, setcod_sdi] = useState("");
   const [iban, setiban] = useState("");
-  const [cf, setfc] = useState("");
+  const [cf, setcf] = useState("");
   const [indir, setindir] = useState("");
   const [citta, setcitta] = useState("");
   const [cap, setcap] = useState("");
@@ -203,6 +198,74 @@ export default function CustomerEdit(props) {
 );
 */
 
+
+
+  const _setragsoc = useCallback((text) => {
+    setragsoc(text);
+  })
+
+  const _setragsoc2 = useCallback((text) => {
+    setragsoc2(text);
+  })
+
+  const _setipva = useCallback((text) => {
+    setipva(text);
+  })
+
+  const _setcod_sdi = useCallback((text) => {
+    setcod_sdi(text);
+  })
+
+  const _setiban = useCallback((text) => {
+    setiban(text);
+  })
+
+  const _setcf = useCallback((text) => {
+    setcf(text);
+  })
+  
+  const _setindir = useCallback((text) => {
+    setindir(text);
+  })
+  
+  const _setcitta = useCallback((text) => {
+    setcitta(text);
+  })
+
+  const _setcap = useCallback((text) => {
+    setcap(text);
+  })
+  
+  const _setprov = useCallback((text) => {
+    setprov(text);
+  })
+
+  const _setiso_nazione = useCallback((text) => {
+    setiso_nazione(text);
+  })
+  
+  const _settel = useCallback((text) => {
+    settel(text);
+  })
+
+  const _setcell = useCallback((text) => {
+    setcell(text);
+  })
+
+  const _setemail = useCallback((text) => {
+    setemail(text);
+  })
+
+  const _setpec = useCallback((text) => {
+    setpec(text);
+  })
+
+  const _setnote = useCallback((text) => {
+    setnote(text);
+  })
+  
+  
+
   const _onPressSubmitButton = () => {
     alert('OK')
   }
@@ -218,6 +281,9 @@ export default function CustomerEdit(props) {
       <DismissKeyboard>
         <View style={{flex: 1}}>
 
+          <View><Text>ragsoc: {ragsoc}</Text></View>
+          <View><Text>ragsoc2: {ragsoc2}</Text></View>
+
           <KeyboardAvoidingView
             style={{ flex: 1, justifyContent: "center" }}
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -227,22 +293,22 @@ export default function CustomerEdit(props) {
               <FormControl style={{ marginBottom: 30 }}>
                 <Stack direction="row" mb="1.5" mt="1.5" space={2}>
                   <Box w="49%">
-                    <InputComponent label="Ragsoc **" text={ragsoc} minlength={1} onupdate={text => setragsoc(text)} style={stylesComponent} />
+                    <InputComponent label="Ragsoc **" text={ragsoc} minlength={1} onupdate={_setragsoc} style={stylesComponent} />
                   </Box>
                   <Box w="49%">
-                    <InputComponent label="Ragsoc2 **" text={ragsoc2} minlength={1} onupdate={text => setragsoc2(text)} style={stylesComponent}/>
+                    <InputComponent label="Ragsoc2 **" text={ragsoc2} minlength={1} onupdate={_setragsoc2} style={stylesComponent}/>
                   </Box>
                 </Stack>
             
                 <Stack direction="row" mb="1.5" mt="1.5" space={2}>
                   <Box w="24%">
-                    <InputComponent label="Partita IVA *" text={piva} minlength={11} keyboard="numeric" onupdate={text => setipva(text)} style={stylesComponent}/>
+                    <InputComponent label="Partita IVA *" text={piva} minlength={11} keyboard="numeric" onupdate={_setipva} style={stylesComponent}/>
                   </Box>
                   <Box w="24%">
-                    <InputComponent label="Codice SDI  *" text={cod_sdi} minlength={7} onupdate={text => setcod_sdi(text)} style={stylesComponent}/>
+                    <InputComponent label="Codice SDI  *" text={cod_sdi} minlength={7} onupdate={_setcod_sdi} style={stylesComponent}/>
                   </Box>
                   <Box w="49%">
-                    <InputComponent label="IBAN  *" text={iban} minlength={27} onupdate={text => setiban(text)} style={stylesComponent}/>
+                    <InputComponent label="IBAN  *" text={iban} minlength={27} onupdate={_setiban} style={stylesComponent}/>
                   </Box>
                 </Stack>
 
@@ -250,10 +316,7 @@ export default function CustomerEdit(props) {
                   <Box w="49%" justifyContent="flex-end" mb="2">
                     <Stack direction="row">
                       <Box>
-                        <Switch
-                              onValueChange={toggleSwitch}
-                              value={ditta_individuale}
-                            />      
+                        <Switch onValueChange={toggleSwitch} value={ditta_individuale} />      
                       </Box>
                       <Box justifyContent="center" ml="2.5">
                         <Text fontSize="sm">Ditta individuale</Text>
@@ -261,121 +324,51 @@ export default function CustomerEdit(props) {
                     </Stack>
                   </Box>
                   <Box w="49%">
-                    <InputComponent label="Codice fiscale *" text={cf} minlength={16} onupdate={text => setfc(text)} disable={!ditta_individuale} style={stylesComponent}/>
+                    <InputComponent label="Codice fiscale *" text={cf} minlength={16} onupdate={_setcf} disable={!ditta_individuale} style={stylesComponent}/>
                   </Box>
                   <Box w="49%">
                   </Box>
                 </Stack>
                 <Stack direction="row" mb="3.5" mt="1.5" space={2}>  
                   <Box w="49%">
-                    <InputComponent label="Indirizzo *" text={cf} minlength={1} onupdate={text => setindir(text)} style={stylesComponent}/>
+                    <InputComponent label="Indirizzo *" text={cf} minlength={1} onupdate={_setindir} style={stylesComponent}/>
                   </Box>
                   <Box w="24%">
-                    <InputComponent label="Città *" text={citta} minlength={1} onupdate={text => setcitta(text)} style={stylesComponent}/>
+                    <InputComponent label="Città *" text={citta} minlength={1} onupdate={_setcitta} style={stylesComponent}/>
                   </Box>
                   <Box w="24%">
-                    <InputComponent label="CAP *" text={cap} minlength={1} onupdate={text => setcap(text)} style={stylesComponent}/>
+                    <InputComponent label="CAP *" text={cap} minlength={1} onupdate={_setcap} style={stylesComponent}/>
                   </Box>
                 </Stack>       
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="49%">
-                    <SelectComponent label="Provincia *" text={prov} minlength={1} data={arrayProvince} onupdate={text => setprov(text)} style={stylesComponent}/>  
+                    <SelectComponent label="Provincia *" text={prov} minlength={1} data={arrayProvince} onupdate={_setprov} style={stylesComponent}/>  
                   </Box>
                   <Box w="49%">
-                    <SelectComponent label="Nazione *" text={iso_nazione} minlength={1} data={arrayNazioni} onupdate={text => setiso_nazione(text)} style={stylesComponent}/>  
-                  </Box>
-                </Stack>
-                {/*
-                <Stack direction="row" mb="1.5" mt="2.5" space={2}>
-                  <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={prov != "" ? "#000000" : "#FF0000"}
-                        >Provincia *</Text>
-                    </FormControl.Label>
-
-                    <PickerModal
-                      renderSelectView={(disabled, selected, showModal) =>
-                        <TouchableOpacity onPress={showModal}>
-                          <View style={{height: 48, borderWidth: 1, borderColor: "#d4d4d4", borderRadius: 4, justifyContent: "center", paddingHorizontal: 12, paddingVertical: 8}}>
-                            <Text style={[stylesComponent.input, {}]}>{label_prov}</Text>
-                            <Icon style={{position: "absolute", right: 10}} as={Ionicons} name="chevron-down" size="xl" />
-                          </View>
-                        </TouchableOpacity>
-                      }
-                      autoCorrect={false}
-                      multiSelect={false}
-                      onSelected={onSelectedProvincia}
-                      onClosed={onClosed}
-                      items={arrayProvince}
-                      sortingLanguage={"tr"}
-                      showToTopButton={true}
-                      selected={prov}
-                      showAlphabeticalIndex={false}
-                      autoGenerateAlphabeticalIndex={true}
-                      selectPlaceholderText={"Seleziona..."}
-                      onEndReached={() => console.log("list ended...")}
-                      searchPlaceholderText={"Cerca..."}
-                      requireSelection={true}
-                      autoSort={false}
-                    />
-                  </Box>
-                  <Box w="49%">
-                    <FormControl.Label>
-                      <Text color={iso_nazione != "" ? "#000000" : "#FF0000"}
-                        >Nazione *</Text>
-                    </FormControl.Label>
-
-                    <PickerModal
-                      renderSelectView={(disabled, selected, showModal) =>
-                        <TouchableOpacity onPress={showModal}>
-                          <View style={{height: 48, borderWidth: 1, borderColor: "#d4d4d4", borderRadius: 4, justifyContent: "center", paddingHorizontal: 12, paddingVertical: 8}}>
-                            <Text style={[stylesComponent.input, {}]}>{label_iso_nazione}</Text>
-                            <Icon style={{position: "absolute", right: 10}} as={Ionicons} name="chevron-down" size="xl" />
-                          </View>
-                        </TouchableOpacity>
-                      }
-                      autoCorrect={false}
-                      multiSelect={false}
-                      onSelected={onSelectedNazione}
-                      onClosed={onClosed}
-                      items={arrayNazioni}
-                      sortingLanguage={"tr"}
-                      showToTopButton={true}
-                      selected={iso_nazione}
-                      showAlphabeticalIndex={false}
-                      autoGenerateAlphabeticalIndex={true}
-                      selectPlaceholderText={"Seleziona..."}
-                      onEndReached={() => console.log("list ended...")}
-                      searchPlaceholderText={"Cerca..."}
-                      requireSelection={true}
-                      autoSort={false}
-                    />
-
+                    <SelectComponent label="Nazione *" text={iso_nazione} minlength={1} data={arrayNazioni} onupdate={_setiso_nazione} style={stylesComponent}/>  
                   </Box>
                 </Stack>
-                    */}
-
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="49%">
-                    <InputComponent label="Telefono *" text={tel} minlength={1} onupdate={text => settel(text)} keyboard="numeric" style={stylesComponent}/>
+                    <InputComponent label="Telefono *" text={tel} minlength={1} onupdate={_settel} keyboard="numeric" style={stylesComponent}/>
                   </Box>
                   <Box w="49%">
-                    <InputComponent label="Cellulare *" text={cell} minlength={1} onupdate={text => setcell(text)} keyboard="numeric" style={stylesComponent}/>
+                    <InputComponent label="Cellulare *" text={cell} minlength={1} onupdate={_setcell} keyboard="numeric" style={stylesComponent}/>
                   </Box>
                 </Stack>
 
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="49%">
-                    <InputComponent label="Email" text={email} onupdate={text => setemail(text)} keyboard="email-address" style={stylesComponent}/>
+                    <InputComponent label="Email" text={email} onupdate={_setemail} keyboard="email-address" style={stylesComponent}/>
                   </Box>
                   <Box w="49%">
-                    <InputComponent label="PEC" text={pec} onupdate={text => setpec(text)} keyboard="email-address" style={stylesComponent}/>
+                    <InputComponent label="PEC" text={pec} onupdate={_setpec} keyboard="email-address" style={stylesComponent}/>
                   </Box>
                 </Stack>
 
                 <Stack direction="row" mb="1.5" mt="2.5" space={2}>
                   <Box w="98%">
-                    <InputComponent label="Note" text={pec} onupdate={text => setnote(text)} multiline style={stylesComponent}/>
+                    <InputComponent label="Note" text={pec} onupdate={_setnote} multiline style={stylesComponent}/>
                   </Box>
                 </Stack>
 
