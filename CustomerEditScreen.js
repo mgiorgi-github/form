@@ -290,7 +290,7 @@ export default function CustomerEdit(props) {
                 {/* BOF DEBUG  */}
                 <View style={{backgroundColor: "#cccccc", marginVertical: 15, padding: 15}}>
                   <View style={{alignItems: "center", marginBottom: 15}}>
-                    <Text style={{fontSize: 20}}>DEBUG STATE VALIABLES</Text>
+                    <Text style={{fontSize: 20}}>DEBUG STATE VARIABLES</Text>
                   </View>
                   <View style={{flexDirection: "row"}}>
                     <View style={{flex: 1}}>
